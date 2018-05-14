@@ -1,10 +1,10 @@
 ﻿using graphqldemo.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace graphqldemo.Controllers
 {
-    [Produces("application/json")]
     [Route("api/user")]
     public class DefaultController : Controller
     {
@@ -16,9 +16,9 @@ namespace graphqldemo.Controllers
         }
 
         [Route("")]
-        public ActionResult GetUsers()
+        public async Task<ActionResult> Get()
         {
-            return Ok(_userService.Get());
+            return Ok(await _userService.Get());
         }
     }
 }

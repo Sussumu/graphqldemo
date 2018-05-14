@@ -1,10 +1,9 @@
-﻿using graphqldemo.Models;
-using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 
 namespace graphqldemo.Services
 {
     public interface IUserService
     {
-        List<User> Get();
+        Task<string> Get();
     }
 }

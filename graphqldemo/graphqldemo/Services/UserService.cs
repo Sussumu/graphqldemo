@@ -1,25 +1,33 @@
-﻿using graphqldemo.Models;
-using System.Collections.Generic;
+﻿using GraphQL;
+using GraphQL.Types;
+using graphqldemo.Schemas;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace graphqldemo.Services
 {
     public class UserService : IUserService
     {
-        public List<User> Get()
+        public async Task<string> Get()
         {
-            return new List<User>
+            var schema = new Schema { Query = new UserQuery() };
+
+            var executer = new DocumentExecuter();
+            var result = await executer.ExecuteAsync(opt =>
             {
-                new User
-                {
-                    Id = 1,
-                    Name = "Loren"
-                },
-                new User
-                {
-                    Id = 2,
-                    Name = "Ipsum"
-                }
-            };
+                opt.Schema = schema;
+                opt.Query = @"
+                    query {
+                        user {
+                            name
+                        }
+                    }
+                ";
+            });
+
+            return result.Data is null
+                ? null
+                : JsonConvert.SerializeObject(result);
         }
     }
 }
