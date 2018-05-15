@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace graphqldemo.Controllers
 {
-    [Route("api/user")]
+    [Route("api")]
     public class DefaultController : Controller
     {
         private readonly IUserService _userService;
