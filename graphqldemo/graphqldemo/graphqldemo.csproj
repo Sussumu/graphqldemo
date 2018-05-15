@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="www\**" />
+    <Content Remove="www\**" />
+    <EmbeddedResource Remove="www\**" />
+    <None Remove="www\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
