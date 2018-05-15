@@ -4,6 +4,6 @@ namespace graphqldemo.Services
 {
     public interface IUserService
     {
-        Task<string> Get();
+        Task<object> Get(string query);
     }
 }

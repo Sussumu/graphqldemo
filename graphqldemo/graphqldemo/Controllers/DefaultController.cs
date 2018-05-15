@@ -16,9 +16,9 @@ namespace graphqldemo.Controllers
         }
 
         [Route("")]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult> Get(string query)
         {
-            return Ok(await _userService.Get());
+            return Ok(await _userService.Get(query));
         }
     }
 }

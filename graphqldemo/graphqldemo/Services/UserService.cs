@@ -1,14 +1,13 @@
 ﻿using GraphQL;
 using GraphQL.Types;
 using graphqldemo.Schemas;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace graphqldemo.Services
 {
     public class UserService : IUserService
     {
-        public async Task<string> Get()
+        public async Task<object> Get(string query)
         {
             var schema = new Schema { Query = new UserQuery() };
 
@@ -16,18 +15,10 @@ namespace graphqldemo.Services
             var result = await executer.ExecuteAsync(opt =>
             {
                 opt.Schema = schema;
-                opt.Query = @"
-                    query {
-                        user {
-                            name
-                        }
-                    }
-                ";
+                opt.Query = query;
             });
 
-            return result.Data is null
-                ? null
-                : JsonConvert.SerializeObject(result);
+            return result.Data;
         }
     }
 }
