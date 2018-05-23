@@ -12,6 +12,7 @@ namespace graphqldemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors();
 
             ConfigureDependencyInjection(services);
         }
@@ -28,6 +29,9 @@ namespace graphqldemo
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:8080"));
 
             app.UseMvc(routes =>
             {
