@@ -36,12 +36,12 @@ namespace graphqldemo.Models.GraphQL
         }
     }
 
-    public class PartialSuccessfullQueryResponse : QueryResponse
+    public class PartiallySuccessfullQueryResponse : QueryResponse
     {
         public object Data { get; }
         public Dictionary<string, string> Errors { get; }
 
-        public PartialSuccessfullQueryResponse(object data, IEnumerable<string> errors)
+        public PartiallySuccessfullQueryResponse(object data, IEnumerable<string> errors)
         {
             if (data is null || errors is null || !errors.Any())
                 throw new ArgumentNullException(nameof(errors));

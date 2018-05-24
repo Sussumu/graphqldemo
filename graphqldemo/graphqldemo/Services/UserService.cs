@@ -26,7 +26,7 @@ namespace graphqldemo.Services
             if (result.Errors.Any() || result.Data is null)
                 return new FailedQueryResponse(result.Errors.Select(x => x.Message));
 
-            return new PartialSuccessfullQueryResponse(result.Data, result.Errors.Select(x => x.Message));
+            return new PartiallySuccessfullQueryResponse(result.Data, result.Errors.Select(x => x.Message));
         }
     }
 }

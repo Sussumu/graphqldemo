@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     search: function () {
-      Axios.get("http://localhost:63358/api", {params: this.query})
+      Axios.get("http://localhost:63358/api", { params: { query: this.query }})
         .then(function (response) {
           this.queryResponse = response.data;
         })
