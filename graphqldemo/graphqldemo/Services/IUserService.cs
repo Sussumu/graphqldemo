@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using graphqldemo.Models.GraphQL;
+using System.Threading.Tasks;
 
 namespace graphqldemo.Services
 {
     public interface IUserService
     {
-        Task<object> Get(string query);
+        Task<QueryResponse> Get(string query);
     }
 }

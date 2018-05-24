@@ -1,13 +1,15 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+using graphqldemo.Models.GraphQL;
 using graphqldemo.Schemas;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace graphqldemo.Services
 {
     public class UserService : IUserService
     {
-        public async Task<object> Get(string query)
+        public async Task<QueryResponse> Get(string query)
         {
             var schema = new Schema { Query = new UserQuery() };
 
@@ -18,7 +20,13 @@ namespace graphqldemo.Services
                 opt.Query = query;
             });
 
-            return result.Data;
+            if (result.Errors is null || result.Data != null)
+                return new SuccessfullQueryResponse(result.Data);
+
+            if (result.Errors.Any() || result.Data is null)
+                return new FailedQueryResponse(result.Errors.Select(x => x.Message));
+
+            return new PartialSuccessfullQueryResponse(result.Data, result.Errors.Select(x => x.Message));
         }
     }
 }
