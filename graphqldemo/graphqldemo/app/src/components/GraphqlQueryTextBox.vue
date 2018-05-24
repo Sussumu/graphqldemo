@@ -30,10 +30,10 @@ export default {
   methods: {
     search: function () {
       Axios.get("http://localhost:63358/api", { params: { query: this.query }})
-        .then(function (response) {
+        .then(response => {
           this.queryResponse = response.data;
         })
-        .catch(function (error) {
+        .catch(error => {
           this.queryResponse = error;
         })
     },
