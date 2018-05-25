@@ -1,14 +1,19 @@
-﻿using graphqldemo.Services;
+﻿using graphqldemo.Data.Context;
+using graphqldemo.Data.Repositories;
+using graphqldemo.Data.Repositories.Interfaces;
+using graphqldemo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace graphqldemo
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public static IConfiguration Configuration { get; set; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -20,9 +25,12 @@ namespace graphqldemo
         private void ConfigureDependencyInjection(IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
+            services.AddDbContext<UserContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultDatabaseConnectionString"]));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
